@@ -8,11 +8,16 @@ RUN apt-get update \
     && cd /tmp \
     && wget http://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz \
     && tar zxvf gromacs-2018.3.tar.gz \
-    && cd gromacs-2018.3
-
-RUN mkdir -p /tmp/gromacs-2018.3/build \
+    && cd gromacs-2018.3 \
+    && mkdir -p /tmp/gromacs-2018.3/build \
     && cd /tmp/gromacs-2018.3/build \
     && cmake .. -DGMX_BUILD_OWN_FFTW=ON -DGMX_GPU=on \
     && make \
-    && make install
-    
+    && make install \
+    && rm -rf /tmp/gromacs-2018.3*
+
+ENV PATH=$PATH:/usr/local/gromacs/bin
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/gromacs/lib
+
+WORKDIR /home
+
