@@ -1,0 +1,18 @@
+FROM nvidia/cuda:9.2-devel
+LABEL maintainer="Mario David <mariojmdavid@gmail.com>"
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends cmake g++ wget tar \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && cd /tmp \
+    && wget http://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz \
+    && tar zxvf gromacs-2018.3.tar.gz \
+    && cd gromacs-2018.3
+
+RUN mkdir -p /tmp/gromacs-2018.3/build \
+    && cd /tmp/gromacs-2018.3/build \
+    && cmake .. -DGMX_BUILD_OWN_FFTW=ON -DGMX_GPU=on \
+    && make \
+    && make install
+    
