@@ -1,6 +1,11 @@
 FROM nvidia/cuda:9.2-runtime
 LABEL maintainer="Mario David <mariojmdavid@gmail.com>"
 
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends g++ wget tar \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY gromacs /usr/local/gromacs
 ENV PATH=$PATH:/usr/local/gromacs/bin
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/gromacs/lib
