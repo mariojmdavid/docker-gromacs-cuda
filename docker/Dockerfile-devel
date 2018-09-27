@@ -2,7 +2,13 @@ FROM nvidia/cuda:9.2-devel
 LABEL maintainer="Mario David <mariojmdavid@gmail.com>"
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends cmake g++ wget tar \
+    && apt-get install -y --no-install-recommends 
+        cmake \
+        g++ \
+        openmpi-bin \
+        openmpi-common \
+        wget \
+        tar \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && cd /tmp \
