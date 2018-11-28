@@ -1,0 +1,19 @@
+FROM ubuntu:18.04
+LABEL maintainer="Mario David <mariojmdavid@gmail.com>"
+
+COPY gromacs.tgz /usr/local/gromacs.tgz
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        g++ \
+        wget \
+        tar \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && cd /usr/local/ \
+    && tar zxvf gromacs.tgz
+  
+ENV PATH=$PATH:/usr/local/gromacs/bin
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/gromacs/lib
+
+WORKDIR /home
+
