@@ -16,7 +16,7 @@ RUN apt-get update \
     && cd gromacs-2018.3 \
     && mkdir -p /tmp/gromacs-2018.3/build \
     && cd /tmp/gromacs-2018.3/build \
-    && cmake .. -DGMX_BUILD_OWN_FFTW=ON -DGMX_GPU=on -DGMX_MPI=on \
+    && cmake .. -DGMX_BUILD_OWN_FFTW=ON \
     && make \
     && make install \
     && rm -rf /tmp/gromacs-2018.3*
