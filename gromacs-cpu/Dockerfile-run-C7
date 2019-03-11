@@ -7,7 +7,7 @@ RUN yum -y update \
     && yum -y install epel-release tar wget \
     && yum -y update \
     && yum -y install \
-        g++ \
+        gcc-c++ \
         unzip \
         zip \
     && yum clean all \
