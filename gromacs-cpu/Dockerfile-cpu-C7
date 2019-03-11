@@ -1,0 +1,27 @@
+FROM centos:7
+LABEL maintainer="Mario David <mariojmdavid@gmail.com>"
+
+RUN yum -y update \
+    && yum -y install epel-release tar wget \
+    && yum -y update \
+    && yum -y install \
+        cmake \
+        g++ \
+        make \
+    && yum clean all \
+    && cd /tmp \
+    && wget http://ftp.gromacs.org/pub/gromacs/gromacs-2018.5.tar.gz \
+    && tar zxvf gromacs-2018.5.tar.gz \
+    && cd gromacs-2018.5 \
+    && mkdir -p /tmp/gromacs-2018.5/build \
+    && cd /tmp/gromacs-2018.5/build \
+    && cmake .. -DGMX_BUILD_OWN_FFTW=ON \
+    && make \
+    && make install \
+    && rm -rf /tmp/gromacs-2018.5*
+
+ENV PATH=$PATH:/usr/local/gromacs/bin
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/gromacs/lib
+
+WORKDIR /home
+

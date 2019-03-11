@@ -1,0 +1,46 @@
+FROM nvidia/cuda:9.0-devel
+LABEL maintainer="Mario David <mariojmdavid@gmail.com>"
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        cmake \
+        g++ \
+        libopenmpi-dev \
+        openmpi-bin \
+        openmpi-common \
+        wget \
+        tar \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && cd /tmp \
+    && wget http://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz \
+    && tar zxvf gromacs-2018.3.tar.gz \
+    && cd gromacs-2018.3 \
+    && mkdir -p /tmp/gromacs-2018.3/build \
+    && cd /tmp/gromacs-2018.3/build \
+    && cmake .. -DGMX_BUILD_OWN_FFTW=ON -DGMX_GPU=on -DGMX_MPI=on \
+    && make \
+    && make install \
+    && rm -rf /tmp/gromacs-2018.3*
+
+FROM nvidia/cuda:9.0-runtime
+
+ENV PATH=$PATH:/usr/local/gromacs/bin
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/gromacs/lib
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        g++ \
+        openmpi-bin \
+        openmpi-common \
+        wget \
+        tar \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=0 /usr/local/gromacs /usr/local/gromacs
+ENV PATH=$PATH:/usr/local/gromacs/bin
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/gromacs/lib
+
+WORKDIR /home
+
