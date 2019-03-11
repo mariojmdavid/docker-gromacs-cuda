@@ -15,7 +15,7 @@ RUN yum -y update \
     && cd gromacs-2018.5 \
     && mkdir -p /tmp/gromacs-2018.5/build \
     && cd /tmp/gromacs-2018.5/build \
-    && cmake .. -DGMX_BUILD_OWN_FFTW=ON \
+    && cmake3 .. -DGMX_BUILD_OWN_FFTW=ON \
     && make \
     && make install \
     && rm -rf /tmp/gromacs-2018.5*
