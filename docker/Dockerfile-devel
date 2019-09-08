@@ -1,27 +1,28 @@
+# docker build --build-arg gromacs_ver=2019.2 -t gromacs-cuda -f Dockerfile-devel .
+
 FROM nvidia/cuda:9.2-devel
 LABEL maintainer="Mario David <mariojmdavid@gmail.com>"
+
+ARG gromacs_ver
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         cmake \
         g++ \
-        libopenmpi-dev \
-        openmpi-bin \
-        openmpi-common \
         wget \
         tar \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && cd /tmp \
-    && wget http://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz \
-    && tar zxvf gromacs-2018.3.tar.gz \
-    && cd gromacs-2018.3 \
-    && mkdir -p /tmp/gromacs-2018.3/build \
-    && cd /tmp/gromacs-2018.3/build \
-    && cmake .. -DGMX_BUILD_OWN_FFTW=ON -DGMX_GPU=on -DGMX_MPI=on \
+    && wget http://ftp.gromacs.org/pub/gromacs/gromacs-${gromacs_ver}.tar.gz \
+    && tar zxvf gromacs-${gromacs_ver}.tar.gz \
+    && cd gromacs-${gromacs_ver} \
+    && mkdir -p /tmp/gromacs-${gromacs_ver}/build \
+    && cd /tmp/gromacs-${gromacs_ver}/build \
+    && cmake .. -DGMX_BUILD_OWN_FFTW=ON -DGMX_GPU=on \
     && make \
     && make install \
-    && rm -rf /tmp/gromacs-2018.3*
+    && rm -rf /tmp/gromacs-${gromacs_ver}*
 
 ENV PATH=$PATH:/usr/local/gromacs/bin
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/gromacs/lib
