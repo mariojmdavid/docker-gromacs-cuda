@@ -1,4 +1,6 @@
-FROM nvidia/cuda:9.2-runtime
+# docker build -t gromacs-cuda:2019.3-runtime -f Dockerfile-runtime .
+
+FROM nvidia/cuda:10.1-runtime
 LABEL maintainer="Mario David <mariojmdavid@gmail.com>"
 
 RUN apt-get update \

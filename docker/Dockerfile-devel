@@ -1,6 +1,6 @@
-# docker build --build-arg gromacs_ver=2019.2 -t gromacs-cuda -f Dockerfile-devel .
+# docker build --build-arg gromacs_ver=2019.3 -t gromacs-cuda -f Dockerfile-devel .
 
-FROM nvidia/cuda:9.2-devel
+FROM nvidia/cuda:10.1-devel
 LABEL maintainer="Mario David <mariojmdavid@gmail.com>"
 
 ARG gromacs_ver
