@@ -4,8 +4,6 @@ LABEL maintainer="Mario David <mariojmdavid@gmail.com>"
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         g++ \
-        openmpi-bin \
-        openmpi-common \
         wget \
         tar \
     && apt-get clean \
