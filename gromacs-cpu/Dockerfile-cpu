@@ -14,7 +14,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && cd /tmp \
-    && wget http://ftp.gromacs.org/pub/gromacs/gromacs-${gromacs_ver}.tar.gz \
+    && wget --no-check-certificate https://ftp.gromacs.org/gromacs/gromacs-${gromacs_ver}.tar.gz \
     && tar zxvf gromacs-${gromacs_ver}.tar.gz \
     && cd gromacs-${gromacs_ver} \
     && mkdir -p /tmp/gromacs-${gromacs_ver}/build \
@@ -28,4 +28,3 @@ ENV PATH=$PATH:/usr/local/gromacs/bin
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/gromacs/lib
 
 WORKDIR /home
-
