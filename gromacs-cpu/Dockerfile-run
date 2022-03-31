@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 LABEL maintainer="Mario David <mariojmdavid@gmail.com>"
 
 COPY gromacs.tgz /usr/local/gromacs.tgz
