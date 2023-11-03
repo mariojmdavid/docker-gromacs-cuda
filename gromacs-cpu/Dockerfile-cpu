@@ -1,6 +1,6 @@
-# docker build --build-arg gromacs_ver=2022 -t gromacs -f Dockerfile-cpu .
+# docker build --build-arg gromacs_ver=2023 -t gromacs -f Dockerfile-cpu .
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 LABEL maintainer="Mario David <mariojmdavid@gmail.com>"
 
 ARG gromacs_ver
