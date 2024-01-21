@@ -1,4 +1,4 @@
-# docker build --build-arg gromacs_ver=2023.3 -t gromacs-mpi -f Dockerfile-mpi .
+# docker build --build-arg gromacs_ver=2023 -t gromacs -f Dockerfile-cpu .
 
 FROM ubuntu:22.04
 LABEL maintainer="Mario David <mariojmdavid@gmail.com>"
@@ -9,21 +9,17 @@ RUN apt-get update \
         cmake \
         g++ \
         make \
-        openmpi-bin \
-        openmpi-common \
         wget \
         tar \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN cd /tmp \
+    && rm -rf /var/lib/apt/lists/* \
+    && cd /tmp \
     && wget --no-check-certificate https://ftp.gromacs.org/gromacs/gromacs-${gromacs_ver}.tar.gz \
     && tar zxvf gromacs-${gromacs_ver}.tar.gz \
     && cd gromacs-${gromacs_ver} \
     && mkdir -p /tmp/gromacs-${gromacs_ver}/build \
-    && cd /tmp/gromacs-${gromacs_ver}/build
-
-RUN cmake .. -DGMX_BUILD_OWN_FFTW=ON -DGMX_MPI=ON -DGMX_OPENMP=ON -DGMX_GPU=OFF \
+    && cd /tmp/gromacs-${gromacs_ver}/build \
+    && cmake .. -DGMX_BUILD_OWN_FFTW=ON \
     && make \
     && make install \
     && rm -rf /tmp/gromacs-${gromacs_ver}*
