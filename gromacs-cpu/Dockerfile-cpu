@@ -9,8 +9,6 @@ RUN apt-get update \
         cmake \
         g++ \
         make \
-        openmpi-bin \
-        openmpi-common \
         wget \
         tar \
     && apt-get clean \
@@ -21,9 +19,8 @@ RUN cd /tmp \
     && tar zxvf gromacs-${gromacs_ver}.tar.gz \
     && cd gromacs-${gromacs_ver} \
     && mkdir -p /tmp/gromacs-${gromacs_ver}/build \
-    && cd /tmp/gromacs-${gromacs_ver}/build
-
-RUN cmake .. -DGMX_BUILD_OWN_FFTW=ON -DGMX_MPI=ON -DGMX_OPENMP=ON -DGMX_GPU=OFF \
+    && cd /tmp/gromacs-${gromacs_ver}/build \
+    && cmake .. -DGMX_BUILD_OWN_FFTW=ON -DGMX_OPENMP=ON -DGMX_GPU=OFF \
     && make \
     && make install \
     && rm -rf /tmp/gromacs-${gromacs_ver}*
