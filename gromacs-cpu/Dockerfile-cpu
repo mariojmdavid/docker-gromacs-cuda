@@ -1,6 +1,6 @@
-# docker build --build-arg gromacs_ver=2023.3 -t gromacs-mpi -f Dockerfile-mpi .
+# docker build --build-arg gromacs_ver=2025.4 -t gromacs-openmp-2005.4 -f Dockerfile-cpu .
 
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 LABEL maintainer="Mario David <mariojmdavid@gmail.com>"
 
 ARG gromacs_ver
