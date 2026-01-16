@@ -1,4 +1,4 @@
-# docker build --build-arg gromacs_ver=2025.4 -t gromacs-gpu-2005.4 -f Dockerfile-gpu .
+# docker build --build-arg gromacs_ver=2025.4 -t gromacs-gpu-2025.4 -f Dockerfile-gpu .
 
 FROM nvidia/cuda:12.6.0-devel-ubuntu24.04
 LABEL maintainer="Mario David <mariojmdavid@gmail.com>"

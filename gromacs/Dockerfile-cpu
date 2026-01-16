@@ -1,4 +1,4 @@
-# docker build --build-arg gromacs_ver=2025.4 -t gromacs-openmp-2005.4 -f Dockerfile-cpu .
+# docker build --build-arg gromacs_ver=2025.4 -t gromacs-openmp-2025.4 -f Dockerfile-cpu .
 
 FROM ubuntu:24.04
 LABEL maintainer="Mario David <mariojmdavid@gmail.com>"
